@@ -23,7 +23,10 @@ public class DisplayScreen extends JComponent{
 		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		
 		this.handler.getGame().getPlayer().draw(g);
+		
 		for(Pipe p : this.handler.getGame().getPipes())
 			p.draw(g);
+		
+		this.handler.getGame().getScoreHandler().drawScore(g);
 	}
 }

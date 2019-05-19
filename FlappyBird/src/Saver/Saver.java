@@ -128,11 +128,9 @@ public class Saver {
 	public static PlayerID getCurrPlayer() {
 
 		try {
-			for(PlayerID p : handler.getGame().getScoreHandler().getHSList()) {
-
+			for(PlayerID p : handler.getGame().getScoreHandler().getHSList()) 
 				if(handler.getGame().getName().equals(p.getName()))
 					return p;
-			}
 		}
 		catch(Exception e) {}
 
