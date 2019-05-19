@@ -32,7 +32,7 @@ public class Saver {
 			System.out.println("File " + path + " not found. New file created.");
 		}
 
-		String savedScore = handler.getGame().getName() + ":" + score;
+		String savedScore = handler.getGame().getName() + ":" + score;  
 
 		editHSRecord(savedScore);
 
@@ -41,7 +41,7 @@ public class Saver {
 	}
 
 	public static List<PlayerID> getHSRecord() throws IOException{
-		
+
 		List<String> list = getHSRecordHelper();
 
 		List<PlayerID> convertedIDs = new LinkedList<>();
@@ -112,7 +112,7 @@ public class Saver {
 
 			while((line = reader.readLine()) != null) {
 
-				list.add(line);
+					list.add(line);
 			}
 		}
 		catch(Exception e) {
@@ -126,9 +126,9 @@ public class Saver {
 	}
 
 	public static PlayerID getCurrPlayer() {
-		
+
 		try {
-			for(PlayerID p : getHSRecord()) {
+			for(PlayerID p : handler.getGame().getScoreHandler().getHSList()) {
 
 				if(handler.getGame().getName().equals(p.getName()))
 					return p;

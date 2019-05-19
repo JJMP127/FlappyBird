@@ -36,7 +36,7 @@ public class Game {
 	private int height;
 
 	public Game(int width, int height, Handler handler, ScoreHandler scores) {
-		
+
 		this.handler = handler;
 		this.scores = scores;
 		this.name = "";
@@ -65,18 +65,21 @@ public class Game {
 
 	@SuppressWarnings("static-access")
 	public void start(String name) throws InterruptedException, IOException {
-		
-		Saver.currPlayer = Saver.getCurrPlayer();
-		
+
 		pane = new JOptionPane();
-		
+
 		this.name = pane.showInputDialog("Enter your name below:" , "Name");
-		
+
 		if(this.name == null)
 			System.exit(0);
-		
-		else this.scores.verifyHighScore();
-		
+
+		else {
+			this.scores.verifyHighScore();
+			//this.handler.getMusic().loadSound("background.wav");
+		}
+
+		Saver.currPlayer = Saver.getCurrPlayer();
+
 		mainFrame = new JFrame(name);
 
 		this.mainFrame.setSize(this.width, this.height);
@@ -128,11 +131,11 @@ public class Game {
 	public Keys getKeys() {
 		return this.keys;
 	}
-	
+
 	public boolean getStartGame() {
 		return this.startGame;
 	}
-	
+
 	public void setStartGame(boolean start) {
 		this.startGame = start;
 	}
@@ -147,26 +150,29 @@ public class Game {
 
 		return list;
 	}	
-	
+
 	public int getScore() {
 		return this.scores.getScore();
 	}
-	
+
 	public void setScore(int s) {
 		this.scores.setScore(s);
 	}
 	
+	public ScoreHandler getScoreHandler() {
+		return this.scores;
+	}
+
 	public int getHighScore() {
 		int result = 0;
 		try {
-			result = this.scores.getHSList()[0].getScore();
+			result = this.scores.getHSList().get(0).getScore();
 		}
 		catch(Exception e) {
-			
+
 			return 0;
 		}
-		
+
 		return result;
 	}
-
 }

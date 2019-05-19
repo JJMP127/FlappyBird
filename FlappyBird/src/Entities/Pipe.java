@@ -77,9 +77,10 @@ public class Pipe {
 		g2.draw(this.scoreUpdater);
 		
 		g2.setFont(new Font("IMPACT", Font.BOLD, 100));
-		g2.drawString(this.handler.getGame().getScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 50, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/10);
+		g2.setColor(Color.WHITE);
+		g2.drawString(this.handler.getGame().getScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 25, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/10);
 		g2.setFont(new Font("IMPACT", Font.BOLD, 30));
-		g2.drawString("High Score: " + this.handler.getGame().getHighScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/4, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/10);
+		g2.drawString("High Score: " + this.handler.getGame().getHighScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 95, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/10 + 35);
 		
 	}
 	

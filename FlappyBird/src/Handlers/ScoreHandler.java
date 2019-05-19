@@ -1,8 +1,8 @@
 package Handlers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import Saver.PlayerID;
 import Saver.Saver;
@@ -12,28 +12,33 @@ public class ScoreHandler {
 	Handler handler;
 	private int score;
 	private int highScore;
-	private PlayerID[] HSList;
+	private List<PlayerID> HSList;
 
 	public ScoreHandler(Handler handler) {
 
 		this.handler = handler;
-		HSList = new PlayerID[5];
 	}
 
 	public void verifyHighScore() throws IOException {
 
+		this.HSList = new ArrayList<>();
 		this.handler.getSaver();
 		List<PlayerID> list = Saver.getHSRecord();
 
-		int limit = (this.getHSList().length < list.size()) ? this.getHSList().length : list.size();
+		int limit = (5 < list.size()) ? 5 : list.size();
 
-		for(int i = 0; i < limit; i++)
-			this.HSList[i] = list.get(i);
+		int count = 0;
+		for(PlayerID p : list) {
+			if(count < limit)
+				this.HSList.add(p);
+		
+			count++;
+		}
 
 		System.out.println("\nTop 5 High Scores:\n");
 
-		for(int i = 0; i < limit; i++)
-			System.out.println(this.getHSList()[i].getName() + " .......... " + this.getHSList()[i].getScore());
+		for(PlayerID p : this.HSList)
+			System.out.println(p.getName() + " .......... " + p.getScore());
 	}
 
 	public int getScore() {
@@ -52,11 +57,7 @@ public class ScoreHandler {
 		this.highScore = highScore;
 	}
 
-	public PlayerID[] getHSList() {
+	public List<PlayerID> getHSList() {
 		return HSList;
-	}
-
-	public void setHSList(PlayerID[] hSList) {
-		HSList = hSList;
 	}
 }

@@ -10,6 +10,7 @@ public class Handler {
 	
 	Saver saver = new Saver(this);
 	ScoreHandler scores = new ScoreHandler(this);
+	Music music = new Music();
 	Game game = new Game(1000,1000, this, this.scores);
 	
 	public Game getGame() {
@@ -20,6 +21,10 @@ public class Handler {
 		return this.saver;
 	}
 	
+	public Music getMusic() {
+		return this.music;
+	}
+	
 	public void restartGame() throws IOException {
 		this.game.setStartGame(false);
 		this.getGame().getPlayer().restart();
@@ -27,6 +32,5 @@ public class Handler {
 			p.restart();
 		this.game.setScore(0);
 		this.scores.verifyHighScore();
-	}
-	
+	}	
 }

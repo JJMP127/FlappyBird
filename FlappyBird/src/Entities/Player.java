@@ -36,7 +36,7 @@ public class Player {
 	}
 
 	public void jump() {
-
+		
 		this.jumping = true;
 		this.falling = false;
 		this.setVelY(4.0);
@@ -60,23 +60,7 @@ public class Player {
 		this.move();
 		this.checkCollision();
 
-		if(this.jumping && this.getVelY() <= 0) {
-
-			this.jumping = false;
-			this.falling = true;
-		}
-
-		else if(this.jumping) {
-
-			this.setVelY( this.getVelY() - this.getGravity());
-			this.setyPos((int) (this.getyPos() - this.getVelY()));
-		}
-
-		if(this.falling) {
-
-			this.setyPos((int) (this.getyPos() + this.getVelY()));
-			this.setVelY(this.getVelY() + this.getGravity());
-		}
+		this.jumpMechanism();
 	}
 
 	public void draw(Graphics g) {
@@ -108,9 +92,32 @@ public class Player {
 
 				this.handler.getSaver().SaveScore(this.handler.getGame().getScore());
 
-				this.handler.getGame().setStartGame(false);
 				this.handler.restartGame();
 			}
+		}
+		
+		if(this.getyPos() + this.getSize() > this.handler.getGame().getHeight()) 
+			this.handler.restartGame();
+	}
+	
+	private void jumpMechanism() {
+		
+		if(this.jumping && this.getVelY() <= 0) {
+
+			this.jumping = false;
+			this.falling = true;
+		}
+
+		else if(this.jumping) {
+
+			this.setVelY( this.getVelY() - this.getGravity());
+			this.setyPos((int) (this.getyPos() - this.getVelY()));
+		}
+
+		if(this.falling) {
+
+			this.setyPos((int) (this.getyPos() + this.getVelY()));
+			this.setVelY(this.getVelY() + this.getGravity());
 		}
 	}
 
