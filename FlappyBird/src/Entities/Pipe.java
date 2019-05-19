@@ -50,12 +50,7 @@ public class Pipe {
 		
 		this.respawn();
 		
-		if(this.handler.getGame().getPlayer().getPlayer().intersects(this.getScoreUpdater())) {
-			this.setMovedRect(0);
-			this.setMovedRectSize(0);
-			
-			this.handler.getGame().setScore(this.handler.getGame().getScore() + 1);
-		}
+		this.addPoint();
 	}
 	
 	public void draw(Graphics g) {
@@ -90,6 +85,16 @@ public class Pipe {
 			this.setMovedRectSize(220);
 			
 		}
+	}
+	
+	public void addPoint() {
+		
+		if(this.handler.getGame().getPlayer().getPlayer().intersects(this.getScoreUpdater())) {
+			this.setMovedRect(0);
+			this.setMovedRectSize(0);
+			this.handler.getMusic().playAddPoint();
+			this.handler.getGame().setScore(this.handler.getGame().getScore() + 1);
+		}	
 	}
 
 	public int getxPos() {

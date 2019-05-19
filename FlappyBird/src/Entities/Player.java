@@ -92,6 +92,8 @@ public class Player {
 		for(Pipe p : this.handler.getGame().getPipes()) {
 			if(this.getPlayer().intersects(p.getLowerPipe()) || this.player.intersects(p.getUpperPipe())) {
 
+				this.handler.getMusic().playCrash();
+				
 				this.handler.getSaver().SaveScore(this.handler.getGame().getScore());
 
 				this.handler.restartGame();

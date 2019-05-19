@@ -16,7 +16,17 @@ public class Music {
 	
 	public void playJumpSound() {
 		
-		this.playSound("jump.wav", -18.0f);
+		this.playSound("jump.wav", 0);
+	}
+	
+	public void playAddPoint() {
+		
+		this.playSound("point.wav", 0);
+	}
+	
+	public void playCrash() {
+		
+		this.playSound("crash.wav", 0);
 	}
 	
 	public void playBackground() {
