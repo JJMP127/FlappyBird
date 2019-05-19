@@ -75,7 +75,7 @@ public class Game {
 
 		else {
 			this.scores.verifyHighScore();
-			//this.handler.getMusic().loadSound("background.wav");
+			this.handler.getMusic().playBackground();
 		}
 
 		Saver.currPlayer = Saver.getCurrPlayer();

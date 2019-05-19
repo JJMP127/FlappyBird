@@ -5,22 +5,45 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
+import Main.Main;
 
 public class Music {
 
 	private File audioFile;
+	private Thread curJumpThread;
 	
-	public void loadSound(String path) {
+	public void playJumpSound() {
 		
-		try {
+		this.playSound("jump.wav", -18.0f);
+	}
+	
+	public void playBackground() {
+		
+		this.playSound("background.wav", -10.0f);
+	}
+	
+	private synchronized void playSound(String path, float decreaseVol) {
+
 		audioFile = new File("Resources/" + path);
-		AudioInputStream input = AudioSystem.getAudioInputStream(audioFile);  
-		Clip clip = AudioSystem.getClip();
-	    clip.open(input);
-	    clip.start();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}	
+
+		curJumpThread = new Thread(new Runnable() {
+
+			public void run() {
+
+				try {
+
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioFile);
+					clip.open(inputStream);
+					FloatControl control =  (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+					control.setValue(decreaseVol);
+					clip.start(); 
+				} catch (Exception e) {}
+			}
+		});
+
+		curJumpThread.start();
 	}
 }

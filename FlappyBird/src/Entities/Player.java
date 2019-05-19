@@ -40,6 +40,8 @@ public class Player {
 		this.jumping = true;
 		this.falling = false;
 		this.setVelY(4.0);
+		
+		this.handler.getMusic().playJumpSound();
 	}
 
 	public void gravityEffect() {
