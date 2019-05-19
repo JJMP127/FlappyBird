@@ -12,11 +12,11 @@ public class Saver {
 
 	static Handler handler;
 	private static String fileName = "HighScore.txt";
-	private static File file;
+	public static PlayerID currPlayer;
 
 	public Saver(Handler handler) {
 
-		this.handler = handler;
+		Saver.handler = handler;
 	}
 
 	public static void SaveScore(int score) throws IOException {
@@ -28,7 +28,7 @@ public class Saver {
 		}
 		catch(Exception e) {
 
-			file = new File(path);
+			File file = new File(path);
 			System.out.println("File " + path + " not found. New file created.");
 		}
 
@@ -36,11 +36,12 @@ public class Saver {
 
 		editHSRecord(savedScore);
 
-		System.out.println("\nNew High Score by " + handler.getGame().getName() + ": " + score + ". Saved in file HighScore.txt");
+		if(score > currPlayer.getScore())
+			System.out.println("\nNew High Score by " + handler.getGame().getName() + ": " + score + ". Saved in file HighScore.txt");
 	}
 
 	public static List<PlayerID> getHSRecord() throws IOException{
-
+		
 		List<String> list = getHSRecordHelper();
 
 		List<PlayerID> convertedIDs = new LinkedList<>();
@@ -122,5 +123,19 @@ public class Saver {
 		}
 
 		return list;
+	}
+
+	public static PlayerID getCurrPlayer() {
+		
+		try {
+			for(PlayerID p : getHSRecord()) {
+
+				if(handler.getGame().getName().equals(p.getName()))
+					return p;
+			}
+		}
+		catch(Exception e) {}
+
+		return new PlayerID(0, handler.getGame().getName());
 	}
 }

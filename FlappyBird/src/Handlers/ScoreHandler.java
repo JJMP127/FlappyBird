@@ -22,17 +22,18 @@ public class ScoreHandler {
 
 	public void verifyHighScore() throws IOException {
 
-		List<PlayerID> list = this.handler.getSaver().getHSRecord();
+		this.handler.getSaver();
+		List<PlayerID> list = Saver.getHSRecord();
 
 		int limit = (this.getHSList().length < list.size()) ? this.getHSList().length : list.size();
 
 		for(int i = 0; i < limit; i++)
 			this.HSList[i] = list.get(i);
-			
-			System.out.println("\nTop 5 High Scores:\n");
-			
-			for(int i = 0; i < limit; i++)
-				 System.out.println(this.getHSList()[i].getName() + " .......... " + this.getHSList()[i].getScore());
+
+		System.out.println("\nTop 5 High Scores:\n");
+
+		for(int i = 0; i < limit; i++)
+			System.out.println(this.getHSList()[i].getName() + " .......... " + this.getHSList()[i].getScore());
 	}
 
 	public int getScore() {

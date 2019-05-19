@@ -66,11 +66,16 @@ public class Game {
 	@SuppressWarnings("static-access")
 	public void start(String name) throws InterruptedException, IOException {
 		
-		this.scores.verifyHighScore();
+		Saver.currPlayer = Saver.getCurrPlayer();
 		
 		pane = new JOptionPane();
 		
 		this.name = pane.showInputDialog("Enter your name below:" , "Name");
+		
+		if(this.name == null)
+			System.exit(0);
+		
+		else this.scores.verifyHighScore();
 		
 		mainFrame = new JFrame(name);
 
