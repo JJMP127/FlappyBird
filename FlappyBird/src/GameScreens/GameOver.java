@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.IOException;
+import java.util.Random;
 
 import Handlers.Handler;
 import Images.Images;
@@ -39,10 +40,17 @@ public class GameOver {
 			
 			g2.drawImage(Images.scoreBoard, 240, this.ypos - 100, 500, 700, null);
 			
+			String[] scores = this.handler.getGame().getScoreHandler().getBoard();
+			
 			g2.setFont(new Font("IMPACT", Font.BOLD, 45));
 			g2.setColor(Color.DARK_GRAY);
-			for(int i = 0, j = 0, z = 305; i < this.handler.getGame().getScoreHandler().getBoard().length; i++, j += 80, z = 355)
-				g2.drawString(this.handler.getGame().getScoreHandler().getBoard()[i], z, j + this.ypos + 55);
+			for(int i = 0, j = 0, z = 305; i < scores.length; i++, j += 80, z = 355) {
+				if(Saver.Saver.currPlayer.getName().equals(scores[i].substring(0, Saver.Saver.currPlayer.getName().length())))
+						g2.setColor(new Color( new Random().nextInt(255)));
+
+				else g2.setColor(Color.DARK_GRAY);
+				g2.drawString(scores[i], z, j + this.ypos + 55);
+			}
 		}
 		
 		if(this.ypos >= 200) {

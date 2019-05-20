@@ -48,6 +48,8 @@ public class Music {
 					FloatControl control =  (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 					control.setValue(decreaseVol);
 					clip.start(); 
+					if(audioFile.getName().equals("Resources/Sounds/background.wav"))
+						clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {}
 			}
 		});
