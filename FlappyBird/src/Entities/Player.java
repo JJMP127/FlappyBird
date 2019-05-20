@@ -74,8 +74,10 @@ public class Player {
 
 		if(!this.crashed) {
 
-			if(!this.handler.getGame().getStartGame()) 
+			if(!this.handler.getGame().getStartGame()) {
 				g2.drawImage(Images.bird, (int) this.getxPos(), (int) this.getyPos(),(int) (this.getSize() + 20), (int) (this.getSize() + 5), null);
+				this.setyPos(475);
+			}
 
 			else {
 
@@ -181,11 +183,5 @@ public class Player {
 
 	public void setCrashed(boolean crash) {
 		this.crashed = crash;
-	}
-
-	public void restart() {
-		this.xPos = 150;
-		this.yPos = 475;
-		this.setCrashed(false);
 	}
 }

@@ -1,6 +1,5 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -25,7 +24,6 @@ public class Pipe {
 	private Rectangle UpperPipe = new Rectangle();
 	private Random rand = new Random();
 
-	private int OGPosition;
 	private Rectangle scoreUpdater;
 	private int scoreRectY;
 	private int scoreRectSize;
@@ -33,7 +31,6 @@ public class Pipe {
 	public Pipe(int x, Handler handler) {
 
 		this.handler = handler;
-		this.OGPosition = x;
 		this.xPos = x;
 		this.yPosLower = this.rand.nextInt(560) + 220;
 		this.yPosUpper = this.yPosLower - 1220;
@@ -47,7 +44,7 @@ public class Pipe {
 	public void tick() {
 
 		this.setxPos(this.getxPos() - this.SPEED);	
-		
+
 		if(this.getxPos() + this.getWidth() <= 0) 
 			this.respawn();
 
@@ -75,113 +72,103 @@ public class Pipe {
 		this.setHeightUpper(this.heightUpper);
 		this.setScoreRectSize(220);
 		this.setScoreRectY(this.getyPosLower() - 220);
-}
+	}
 
-public void addPoint() {
+	public void addPoint() {
 
-	if(this.handler.getGame().getPlayer().getPlayer().intersects(this.getScoreUpdater())) {
-		this.setScoreRectY(0);
-		this.setScoreRectSize(0);
-		this.handler.getMusic().playAddPoint();
-		int score = this.handler.getGame().getScore();
-		this.handler.getGame().setScore(this.handler.getGame().getScore() + 1);
-		
-		if(this.handler.getGame().getScore() > score + 1)
-			this.handler.getGame().setScore(this.handler.getGame().getScore() - 1);
-	}	
-}
+		if(this.handler.getGame().getPlayer().getPlayer().intersects(this.getScoreUpdater())) {
+			this.setScoreRectY(0);
+			this.setScoreRectSize(0);
+			this.handler.getMusic().playAddPoint();
+			int score = this.handler.getGame().getScore();
+			this.handler.getGame().setScore(this.handler.getGame().getScore() + 1);
 
-public int getxPos() {
-	return xPos;
-}
+			if(this.handler.getGame().getScore() > score + 1)
+				this.handler.getGame().setScore(this.handler.getGame().getScore() - 1);
+		}	
+	}
 
-public void setxPos(int xPos) {
-	this.xPos = xPos;
-}
+	public int getxPos() {
+		return xPos;
+	}
 
-public int getyPosLower() {
-	return yPosLower;
-}
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
+	}
 
-public void setyPosLower(int yPosLower) {
-	this.yPosLower = yPosLower;
-}
+	public int getyPosLower() {
+		return yPosLower;
+	}
 
-public int getyPosUpper() {
-	return yPosUpper;
-}
+	public void setyPosLower(int yPosLower) {
+		this.yPosLower = yPosLower;
+	}
 
-public void setyPosUpper(int yPosUpper) {
-	this.yPosUpper = yPosUpper;
-}
+	public int getyPosUpper() {
+		return yPosUpper;
+	}
 
-public int getWidth() {
-	return width;
-}
+	public void setyPosUpper(int yPosUpper) {
+		this.yPosUpper = yPosUpper;
+	}
 
-public void setWidth(int width) {
-	this.width = width;
-}
+	public int getWidth() {
+		return width;
+	}
 
-public int getHeightLower() {
-	return heightLower;
-}
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
-public void setHeightLower(int heightLower) {
-	this.heightLower = heightLower;
-}
+	public int getHeightLower() {
+		return heightLower;
+	}
 
-public int getHeightUpper() {
-	return heightUpper;
-}
+	public void setHeightLower(int heightLower) {
+		this.heightLower = heightLower;
+	}
 
-public void setHeightUpper(int heightUpper) {
-	this.heightUpper = heightUpper;
-}
+	public int getHeightUpper() {
+		return heightUpper;
+	}
 
-public Rectangle getLowerPipe() {
-	return LowerPipe;
-}
+	public void setHeightUpper(int heightUpper) {
+		this.heightUpper = heightUpper;
+	}
 
-public void setLowerPipe(Rectangle lowerPipe) {
-	LowerPipe = lowerPipe;
-}
+	public Rectangle getLowerPipe() {
+		return LowerPipe;
+	}
 
-public Rectangle getUpperPipe() {
-	return UpperPipe;
-}
+	public void setLowerPipe(Rectangle lowerPipe) {
+		LowerPipe = lowerPipe;
+	}
 
-public void setUpperPipe(Rectangle upperPipe) {
-	UpperPipe = upperPipe;
-}
+	public Rectangle getUpperPipe() {
+		return UpperPipe;
+	}
 
-public int getOGPosition() {
-	return this.OGPosition;
-}
+	public void setUpperPipe(Rectangle upperPipe) {
+		UpperPipe = upperPipe;
+	}
 
-public int getScoreRectY() {
-	return this.scoreRectY;
-}
+	public int getScoreRectY() {
+		return this.scoreRectY;
+	}
 
-public void setScoreRectY(int m) {
-	this.scoreRectY = m;
-}
+	public void setScoreRectY(int m) {
+		this.scoreRectY = m;
+	}
 
-public int getScoreRectSize() {
-	return this.scoreRectSize;
-}
+	public int getScoreRectSize() {
+		return this.scoreRectSize;
+	}
 
-public void setScoreRectSize(int m) {
-	this.scoreRectSize = m;
-}
+	public void setScoreRectSize(int m) {
+		this.scoreRectSize = m;
+	}
 
-public Rectangle getScoreUpdater() {
-	return this.scoreUpdater;
-}
-
-public void restart() {
-	for(Pipe p : this.handler.getGame().getPipes())
-		p.setxPos(p.getOGPosition());
-}
-
+	public Rectangle getScoreUpdater() {
+		return this.scoreUpdater;
+	}
 }

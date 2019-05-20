@@ -2,7 +2,6 @@ package Handlers;
 
 import java.io.IOException;
 
-import Entities.Pipe;
 import GameScreens.GameOver;
 import GameScreens.StartScreen;
 import Images.Images;
@@ -40,11 +39,8 @@ public class Handler {
 	}
 	
 	public void restartGame() throws IOException {
-		this.game.setStartGame(false);
-		this.getGame().getPlayer().restart();
-		for(Pipe p : this.getGame().getPipes())
-			p.restart();
-		this.game.setScore(0);
+
+		this.getGame().restartGame();
 		this.gameOver = new GameOver(this);
 		this.startScreen = new StartScreen(this);
 		this.scores.verifyHighScore();

@@ -192,4 +192,15 @@ public class Game {
 
 		return result;
 	}
+	
+	public void restartGame() {
+		
+		this.setStartGame(false);
+		this.setScore(0);
+		player = new Player(this.handler);
+		pipe1 = new Pipe(this.getWidth() - 100, this.handler);
+		pipe2 = new Pipe(this.getPipes().get(this.getPipes().indexOf(this.pipe1)).getxPos() + 650, this.handler);
+		pipe3 = new Pipe(this.getPipes().get(this.getPipes().indexOf(this.pipe2)).getxPos() + 650, this.handler);
+		floor = new Floor(0, this.getHeight() - 100, handler);
+	}
 }
