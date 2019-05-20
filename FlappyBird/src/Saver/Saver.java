@@ -29,9 +29,6 @@ public class Saver {
 		String savedScore = handler.getGame().getName() + ":" + score;  
 
 		editHSRecord(savedScore);
-
-		if(score > currPlayer.getScore())
-			System.out.println("\nNew High Score by " + handler.getGame().getName() + ": " + score + ". Saved in file HighScore.txt");
 	}
 
 	public static List<PlayerID> getHSRecord() throws IOException{
@@ -53,7 +50,7 @@ public class Saver {
 			convertedIDs.add(newPlayer);
 		}
 
-		Collections.sort(convertedIDs, new MyComp<Integer>());
+		Collections.sort(convertedIDs, new MyComp());
 
 		List<PlayerID> result = new LinkedList<>();
 

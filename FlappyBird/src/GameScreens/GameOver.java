@@ -41,7 +41,7 @@ public class GameOver {
 			
 			g2.setFont(new Font("IMPACT", Font.BOLD, 45));
 			g2.setColor(Color.DARK_GRAY);
-			for(int i = 0, j = 0, z = 305; i < this.handler.getGame().getScoreHandler().getBoard().length; i++, j += 90, z = 355)
+			for(int i = 0, j = 0, z = 305; i < this.handler.getGame().getScoreHandler().getBoard().length; i++, j += 80, z = 355)
 				g2.drawString(this.handler.getGame().getScoreHandler().getBoard()[i], z, j + this.ypos + 55);
 		}
 		

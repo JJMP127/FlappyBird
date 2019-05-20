@@ -2,7 +2,7 @@ package Saver;
 
 import java.util.Comparator;
 
-public class MyComp<Integer> implements Comparator<PlayerID>{
+public class MyComp implements Comparator<PlayerID>{
 
 	@Override
 	public int compare(PlayerID p1, PlayerID p2) {

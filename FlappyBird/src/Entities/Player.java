@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
-import Backgrounds.Floor;
 import Images.Images;
 import Handlers.Handler;
 import Saver.Saver;
