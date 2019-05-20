@@ -3,12 +3,12 @@ package Main;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import Images.Images;
 
+import Backgrounds.Floor;
 import DisplayScreen.DisplayScreen;
 import Entities.Pipe;
 import Entities.Player;
@@ -28,6 +28,7 @@ public class Game {
 	public Pipe pipe1;
 	public Pipe pipe2;
 	public Pipe pipe3;
+	public Floor floor;
 	public DisplayScreen display;
 	private Keys keys;
 	private boolean startGame = false;
@@ -46,19 +47,29 @@ public class Game {
 		pipe1 = new Pipe(this.getWidth() - 100, this.handler);
 		pipe2 = new Pipe(this.getPipes().get(this.getPipes().indexOf(this.pipe1)).getxPos() + 650, this.handler);
 		pipe3 = new Pipe(this.getPipes().get(this.getPipes().indexOf(this.pipe2)).getxPos() + 650, this.handler);
+		floor = new Floor(0, this.getHeight() - 100, handler);
 		display = new DisplayScreen(this.handler);
 		keys = new Keys();
 	}
 
 	public void runner() throws IOException {
 
-		if(this.getKeys().pressedKey(KeyEvent.VK_SPACE)) this.startGame = true;
+		if(this.getKeys().pressedKey(KeyEvent.VK_SPACE)) {
+
+			if(this.getPlayer().getCrashed() && this.handler.getGOver().canRestart()) {
+				this.handler.getGOver().setCanRestart(false);
+				this.getPlayer().setCrashed(false);
+				this.handler.restartGame();
+			}
+			else this.setStartGame(true);
+		}
 
 		if(this.startGame) {
 
 			this.getPlayer().tick();
 			for(Pipe p : this.getPipes()) p.tick();
-		}
+			this.floor.tick();
+		}			
 
 		this.getKeys().tick();
 	}	
@@ -89,12 +100,14 @@ public class Game {
 		this.mainFrame.addKeyListener(this.getKeys());
 
 		this.mainFrame.setVisible(true);
+		
+		this.mainFrame.setIconImage(Images.icon);
 
 		this.mainFrame.setResizable(false);
 
 		this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		while(!this.handler.getGame().getPlayer().getStatus()) {
+		while(true) {
 
 			this.mainFrame.repaint(); 
 
@@ -151,6 +164,10 @@ public class Game {
 		return list;
 	}	
 
+	public Floor getFloor() {
+		return this.floor;
+	}
+
 	public int getScore() {
 		return this.scores.getScore();
 	}
@@ -158,7 +175,7 @@ public class Game {
 	public void setScore(int s) {
 		this.scores.setScore(s);
 	}
-	
+
 	public ScoreHandler getScoreHandler() {
 		return this.scores;
 	}

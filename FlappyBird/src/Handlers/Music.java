@@ -7,8 +7,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import Main.Main;
-
 public class Music {
 
 	private File audioFile;
@@ -16,27 +14,27 @@ public class Music {
 	
 	public void playJumpSound() {
 		
-		this.playSound("jump.wav", 0);
+		this.playSound("jump.wav", -20);
 	}
 	
 	public void playAddPoint() {
 		
-		this.playSound("point.wav", 0);
+		this.playSound("point.wav", -20);
 	}
 	
 	public void playCrash() {
 		
-		this.playSound("crash.wav", 0);
+		this.playSound("crash.wav", -20);
 	}
 	
 	public void playBackground() {
 		
-		this.playSound("background.wav", -10.0f);
+		this.playSound("background.wav", -25);
 	}
 	
 	private synchronized void playSound(String path, float decreaseVol) {
 
-		audioFile = new File("Resources/" + path);
+		audioFile = new File("Resources/Sounds/" + path);
 
 		curJumpThread = new Thread(new Runnable() {
 

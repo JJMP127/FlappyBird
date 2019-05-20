@@ -1,14 +1,14 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
+import Backgrounds.Floor;
+import Images.Images;
 import Handlers.Handler;
 import Saver.Saver;
 
@@ -22,9 +22,9 @@ public class Player {
 	private int size;
 	private boolean falling = true;
 	private boolean jumping = false;
+	private boolean crashed = false;
 	private double GRAVITY = 0.1;
 	private Rectangle2D.Double player = new Rectangle2D.Double();
-	private boolean lost = false;
 
 	public Player(Handler handler) {
 
@@ -32,16 +32,19 @@ public class Player {
 		this.xPos = 150;
 		this.yPos = 475;
 		this.velY = 0;
-		this.size = 40;
+		this.size = 70;
 	}
 
 	public void jump() {
-		
-		this.jumping = true;
-		this.falling = false;
-		this.setVelY(4.0);
-		
-		this.handler.getMusic().playJumpSound();
+
+		if(!this.getCrashed()) {
+
+			this.jumping = true;
+			this.falling = false;
+			this.setVelY(4.0);
+
+			this.handler.getMusic().playJumpSound();
+		}
 	}
 
 	public void gravityEffect() {
@@ -60,6 +63,7 @@ public class Player {
 		this.gravityEffect();
 
 		this.move();
+
 		this.checkCollision();
 
 		this.jumpMechanism();
@@ -69,17 +73,24 @@ public class Player {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		Ellipse2D.Double bird = new Ellipse2D.Double(this.getxPos(), this.getyPos(), this.getSize() + 10, this.getSize() + 10);
+		if(!this.crashed) {
 
-		this.player = new Rectangle2D.Double(this.getxPos() + 5, this.getyPos() + 5, this.getSize(), this.getSize());
+			if(!this.handler.getGame().getStartGame()) 
+				g2.drawImage(Images.bird, (int) this.getxPos(), (int) this.getyPos(),(int) (this.getSize() + 20), (int) (this.getSize() + 5), null);
 
-		g2.setColor(Color.WHITE);
-		g2.draw(player);
+			else {
 
-		g2.setColor(Color.YELLOW);
-		g2.fill(bird);
-		g2.setColor(Color.BLACK);
-		g2.draw(bird);
+				if(this.jumping && this.getVelY() > 2)
+					g2.drawImage(Images.birdTiltedUp, (int) this.getxPos(), (int) this.getyPos(),(int) (this.getSize() + 20), (int) (this.getSize() + 5), null);
+
+				else if(jumping && this.getVelY() > 0 && this.getVelY() <= 2)
+					g2.drawImage(Images.bird, (int) this.getxPos(), (int) this.getyPos(),(int) (this.getSize() + 20), (int) (this.getSize() + 5), null);
+
+				else g2.drawImage(Images.birdTiltedDown, (int) this.getxPos(), (int) this.getyPos(),(int) (this.getSize() + 20), (int) (this.getSize() + 5), null);
+			}
+
+			this.player = new Rectangle2D.Double(this.getxPos() + 15, this.getyPos() + 15, this.getSize() - 10, this.getSize() - 10);
+		}
 	}
 
 	public void move() {
@@ -89,23 +100,23 @@ public class Player {
 
 	public void checkCollision() throws IOException {
 
-		for(Pipe p : this.handler.getGame().getPipes()) {
+		for(Pipe p : this.handler.getGame().getPipes()) 
 			if(this.getPlayer().intersects(p.getLowerPipe()) || this.player.intersects(p.getUpperPipe())) {
 
-				this.handler.getMusic().playCrash();
-				
-				this.handler.getSaver().SaveScore(this.handler.getGame().getScore());
-
-				this.handler.restartGame();
+				this.crash();
+				Saver.SaveScore(this.handler.getGame().getScore());
 			}
-		}
-		
-		if(this.getyPos() + this.getSize() > this.handler.getGame().getHeight()) 
-			this.handler.restartGame();
+
+		for(Rectangle f : this.handler.getGame().getFloor().getFloor())
+			if(this.getPlayer().intersects(f)) {
+
+				this.crash();
+				Saver.SaveScore(this.handler.getGame().getScore());
+			}
 	}
-	
+
 	private void jumpMechanism() {
-		
+
 		if(this.jumping && this.getVelY() <= 0) {
 
 			this.jumping = false;
@@ -123,6 +134,14 @@ public class Player {
 			this.setyPos((int) (this.getyPos() + this.getVelY()));
 			this.setVelY(this.getVelY() + this.getGravity());
 		}
+	}
+
+	private void crash() {
+
+		this.falling = false;
+		this.setCrashed(true);
+		this.player = new Rectangle2D.Double();
+		this.handler.getMusic().playCrash();
 	}
 
 	public Rectangle getPlayer() {
@@ -157,13 +176,17 @@ public class Player {
 		return GRAVITY;
 	}
 
-	public boolean getStatus() {
+	public boolean getCrashed() {
+		return this.crashed;
+	}
 
-		return lost;
+	public void setCrashed(boolean crash) {
+		this.crashed = crash;
 	}
 
 	public void restart() {
 		this.xPos = 150;
 		this.yPos = 475;
+		this.setCrashed(false);
 	}
 }

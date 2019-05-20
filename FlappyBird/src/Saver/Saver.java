@@ -1,10 +1,8 @@
 package Saver;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 import Handlers.Handler;
 
@@ -24,13 +22,9 @@ public class Saver {
 		String path = fileName;
 
 		try {
-			Paths.get(path);
+			Paths.get("HighScoreData/" + path);
 		}
-		catch(Exception e) {
-
-			File file = new File(path);
-			System.out.println("File " + path + " not found. New file created.");
-		}
+		catch(Exception e) {}
 
 		String savedScore = handler.getGame().getName() + ":" + score;  
 
@@ -86,7 +80,7 @@ public class Saver {
 
 		String path = fileName;
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+		BufferedWriter writer = new BufferedWriter(new FileWriter("HighScoreData/" + path, true));
 
 		writer.write(newScore);
 		writer.newLine();
@@ -104,7 +98,7 @@ public class Saver {
 
 		try {
 
-			FileInputStream input = new FileInputStream(path);
+			FileInputStream input = new FileInputStream("HighScoreData/" + path);
 
 			InputStreamReader inputReader = new InputStreamReader(input);
 
@@ -114,9 +108,15 @@ public class Saver {
 
 					list.add(line);
 			}
+			
+			reader.close();
 		}
 		catch(Exception e) {
 
+			File file = new File("HighScoreData/" + path);
+			
+			file.createNewFile();
+			
 			System.out.println("No high scores saved yet. Start playing to begin recording high scores.");
 
 			return list;

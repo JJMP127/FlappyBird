@@ -2,8 +2,6 @@ package Tester;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map.Entry;
-
 import Handlers.Handler;
 import Saver.PlayerID;
 import Saver.Saver;

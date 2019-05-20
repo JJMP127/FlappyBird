@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import Saver.PlayerID;
 import Saver.Saver;
 
@@ -29,7 +28,6 @@ public class ScoreHandler {
 		StringBuilder builder = new StringBuilder();
 
 		this.HSList = new ArrayList<>();
-		this.handler.getSaver();
 		List<PlayerID> list = Saver.getHSRecord();
 
 		int limit = (5 < list.size()) ? 5 : list.size();
@@ -54,13 +52,15 @@ public class ScoreHandler {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		g2.setFont(new Font("IMPACT", Font.BOLD, 100));
-		g2.setColor(Color.CYAN);
-		g2.drawString(this.handler.getGame().getScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 25, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/10);
-		g2.setFont(new Font("IMPACT", Font.BOLD, 19));
-
-		for(int i = 0, j = 0, z = 50; i < this.board.length; i++, j += 25, z = 68)
-			g2.drawString(this.getBoard()[i], z, this.handler.getGame().getHeight() - this.handler.getGame().getHeight()/6 - 10 + j);
+		if(!this.handler.getGame().getPlayer().getCrashed() && this.handler.getGame().getStartGame()) {
+			
+			g2.setFont(new Font("IMPACT", Font.BOLD, 100));
+			g2.setColor(Color.DARK_GRAY);
+			g2.drawString(this.handler.getGame().getScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 25, this.handler.getGame().getHeight()/7 - 10);
+			
+			g2.setColor(Color.WHITE);
+			g2.drawString(this.handler.getGame().getScore() + "", this.handler.getGame().getWidth() - this.handler.getGame().getWidth()/2 - 25,this.handler.getGame().getHeight()/7 - 20);
+		}
 	}
 
 	public int getScore() {
