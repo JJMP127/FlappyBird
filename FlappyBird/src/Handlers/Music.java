@@ -45,11 +45,12 @@ public class Music {
 					Clip clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioFile);
 					clip.open(inputStream);
+					if(path.equals("background.wav"))
+						clip.loop(Clip.LOOP_CONTINUOUSLY);
 					FloatControl control =  (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 					control.setValue(decreaseVol);
 					clip.start(); 
-					if(audioFile.getName().equals("Resources/Sounds/background.wav"))
-						clip.loop(Clip.LOOP_CONTINUOUSLY);
+
 				} catch (Exception e) {}
 			}
 		});
