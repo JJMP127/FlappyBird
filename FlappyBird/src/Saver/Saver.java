@@ -26,7 +26,12 @@ public class Saver {
 		}
 		catch(Exception e) {}
 
-		String savedScore = handler.getGame().getName() + ":" + score;  
+		String name ;
+		if(handler.getGame().getName().equals("")) {
+			name = "No Name";
+		}
+		else name = handler.getGame().getName();
+		String savedScore = name + ":" + score;  
 
 		editHSRecord(savedScore);
 	}
