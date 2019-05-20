@@ -64,9 +64,6 @@ public class Pipe {
 
 		g2.drawImage(Images.lowerPipe, this.getxPos(), this.getyPosLower(), this.getWidth(), this.getHeightLower(), null);
 		g2.drawImage(Images.upperPipe, this.getxPos(), this.getyPosUpper(), this.getWidth(), this.getHeightUpper(), null);
-		
-		g2.setColor(Color.BLACK);
-		g2.draw(this.scoreUpdater);
 	}
 
 	public void respawn() {
