@@ -1,5 +1,6 @@
 package Entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -63,6 +64,9 @@ public class Pipe {
 
 		g2.drawImage(Images.lowerPipe, this.getxPos(), this.getyPosLower(), this.getWidth(), this.getHeightLower(), null);
 		g2.drawImage(Images.upperPipe, this.getxPos(), this.getyPosUpper(), this.getWidth(), this.getHeightUpper(), null);
+		
+		g2.setColor(Color.BLACK);
+		g2.draw(this.scoreUpdater);
 	}
 
 	public void respawn() {
@@ -82,7 +86,11 @@ public void addPoint() {
 		this.setScoreRectY(0);
 		this.setScoreRectSize(0);
 		this.handler.getMusic().playAddPoint();
+		int score = this.handler.getGame().getScore();
 		this.handler.getGame().setScore(this.handler.getGame().getScore() + 1);
+		
+		if(this.handler.getGame().getScore() > score + 1)
+			this.handler.getGame().setScore(this.handler.getGame().getScore() - 1);
 	}	
 }
 
