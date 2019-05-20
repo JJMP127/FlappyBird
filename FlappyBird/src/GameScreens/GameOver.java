@@ -46,7 +46,7 @@ public class GameOver {
 			g2.setColor(Color.DARK_GRAY);
 			for(int i = 0, j = 0, z = 305; i < scores.length; i++, j += 80, z = 355) {
 				if(Saver.Saver.currPlayer.getName().equals(scores[i].substring(0, Saver.Saver.currPlayer.getName().length())))
-						g2.setColor(new Color( new Random().nextInt(255)));
+						g2.setColor(Color.WHITE);
 
 				else g2.setColor(Color.DARK_GRAY);
 				g2.drawString(scores[i], z, j + this.ypos + 55);
