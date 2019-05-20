@@ -69,7 +69,7 @@ public class Pipe {
 	public void respawn() {
 
 		this.setxPos(this.respawn - this.getWidth());
-		this.setyPosLower(this.rand.nextInt(700) + 150);
+		this.setyPosLower(this.rand.nextInt(560) + 220);
 		this.setyPosUpper(this.getyPosLower() - 1220);
 		this.setHeightLower(this.heightLower);
 		this.setHeightUpper(this.heightUpper);
