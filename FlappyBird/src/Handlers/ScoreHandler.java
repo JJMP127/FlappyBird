@@ -44,8 +44,6 @@ public class ScoreHandler {
 
 		for(PlayerID p : this.HSList)
 			builder.append(p.getName() + " .......... " + p.getScore() + ";");
-
-		builder.append("Score: " + this.handler.getGame().getScore());
 		
 		board = builder.toString().split(";");			
 	}
