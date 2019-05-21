@@ -27,9 +27,9 @@ public class GameOver {
 		Graphics2D g2 = (Graphics2D) g;
 
 		if(this.handler.getGame().getPlayer().getCrashed()) {
-			
+
 			this.ypos += 10;
-			
+
 			try {
 				this.handler.getGame().getScoreHandler().verifyHighScore();
 			} catch (IOException e) {}
@@ -37,22 +37,32 @@ public class GameOver {
 			g2.setColor(new Color(255,255,255, this.aplha +=1));
 			g2.fillRect(0, 0, this.handler.getGame().getWidth(), this.handler.getGame().getHeight());
 			if(this.aplha >= 125) this.aplha = 125;
-			
+
 			g2.drawImage(Images.scoreBoard, 240, this.ypos - 100, 500, 700, null);
-			
+
 			String[] scores = this.handler.getGame().getScoreHandler().getBoard();
-			
-			g2.setFont(new Font("IMPACT", Font.BOLD, 45));
+
+			g2.setFont(new Font("IMPACT", Font.BOLD, 40));
 			g2.setColor(Color.DARK_GRAY);
-			for(int i = 0, j = 0, z = 305; i < scores.length; i++, j += 80, z = 355) {
-				if(Saver.Saver.currPlayer.getName().equals(scores[i].substring(0, Saver.Saver.currPlayer.getName().length())))
+			for(int i = 0, j = 0, z = 325, x = 450, s = 415; i < scores.length; i++, j += 65, z = 360) {
+
+				if(scores[i].contains("Score:")) {
+					g2.setFont(new Font("IMPACT", Font.BOLD, 70));
+					g2.setColor(Color.DARK_GRAY);
+					g2.drawString(scores[i].substring(6), s + 35, x + this.ypos + 30);
+					g2.setColor(Color.WHITE);
+					g2.drawString(scores[i].substring(6), s + 35, x + this.ypos + 26);
+				}
+				else {
+					if(Saver.Saver.currPlayer.getName().equals(scores[i].substring(0, Saver.Saver.currPlayer.getName().length())))
 						g2.setColor(Color.WHITE);
 
-				else g2.setColor(Color.DARK_GRAY);
-				g2.drawString(scores[i], z, j + this.ypos + 55);
+					else g2.setColor(Color.DARK_GRAY);
+					g2.drawString(scores[i], z, j + this.ypos + 55);
+				}
 			}
 		}
-		
+
 		if(this.ypos >= 200) {
 			this.ypos = 200;
 			this.canRestart = true;
