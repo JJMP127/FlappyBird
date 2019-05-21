@@ -53,11 +53,20 @@ public class GameOver {
 				g2.drawString(scores[i], z, j + this.ypos + 55);
 			}
 			
+			int x = 0;
+			String scoreDisplayed = String.valueOf(this.handler.getGame().getScore());
+			
+			if(scoreDisplayed.length() == 1)
+				x = 470;
+			else if(scoreDisplayed.length() == 2)
+				x = 450;
+			else x = 430;
+			
 			g2.setFont(new Font("IMPACT", Font.BOLD, 70));
 			g2.setColor(Color.DARK_GRAY);
-			g2.drawString(this.handler.getGame().getScore() + "", 415 + 35, 450 + this.ypos + 30);
+			g2.drawString(scoreDisplayed, x, 450 + this.ypos + 30);
 			g2.setColor(Color.WHITE);
-			g2.drawString(this.handler.getGame().getScore() + "", 415 + 35, 450 + this.ypos + 26);
+			g2.drawString(scoreDisplayed, x, 450 + this.ypos + 26);
 		}
 
 		if(this.ypos >= 200) {

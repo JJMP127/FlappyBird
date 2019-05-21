@@ -93,7 +93,7 @@ public class Game {
 
 		mainFrame = new JFrame(name);
 
-		this.mainFrame.setSize(this.width, this.height);
+		this.mainFrame.setSize(this.getWidth(), this.getHeight());
 
 		this.mainFrame.add(this.getDisplay());
 
